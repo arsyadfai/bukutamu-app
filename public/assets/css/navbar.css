@@ -1,0 +1,85 @@
+/* Gaya Umum untuk Navbar */
+/* Navbar Styles */
+.navbar {
+    background-color: transparent; /* Transparan */
+    padding: 15px; 
+    position: fixed; /* Tetap di atas */
+    width: 100%; /* Lebar penuh */
+    z-index: 1000; /* Pastikan di atas */
+    top: 0; /* Tempatkan di bagian atas */
+}
+
+/* Gaya Tautan Navbar */
+.navbar .nav-link {
+color: #343a40; /* Warna teks tautan lebih gelap */
+padding: 10px 15px; /* Padding untuk ruang di sekitar teks */
+transition: background-color 0.3s; /* Transisi halus saat hover */
+}
+
+/* Efek Hover untuk Tautan Navbar */
+.navbar .nav-link:hover {
+background-color: rgba(52, 58, 64, 0.2); /* Latar belakang abu-abu gelap pada hover */
+border-radius: 5px; /* Sudut membulat pada hover */
+color: #000; /* Warna teks menjadi lebih gelap saat hover */
+}
+
+/* Gaya untuk Tombol Login */
+.buton-login {
+background-color: #28a745; /* Warna tombol login */
+border: none; /* Menghilangkan border */
+color: white; /* Warna teks tombol */
+padding: 10px 20px; /* Padding untuk tombol */
+border-radius: 5px; /* Sudut membulat pada tombol */
+transition: background-color 0.3s; /* Transisi halus saat hover */
+}
+
+/* Efek Hover untuk Tombol Login */
+.btn-login:hover {
+background-color: transparent; /* Warna tombol saat hover */
+}
+
+/* Ikon di samping navbar */
+.navbar .nav-icon {
+margin-right: 10px; /* Ruang antara ikon dan teks */
+color: #343a40; /* Warna ikon lebih gelap */
+}
+
+/* Responsif untuk Navbar */
+@media (max-width: 768px) {
+.navbar {
+flex-direction: row; /* Menyusun navbar secara horizontal */
+align-items: center; /* Memusatkan item navbar */
+justify-content: space-between; /* Agar tautan dan toggle tersebar */
+}
+
+/* Pastikan tombol toggle tetap di pojok kanan */
+.navbar-toggler {
+position: absolute;
+right: 15px; /* Menjaga tombol di pojok kanan */
+top: 15px;
+}
+
+/* Menu yang muncul di bawah toggle */
+.navbar-collapse {
+position: absolute;
+top: 60px; /* Atur posisi tepat di bawah tombol toggle */
+width: 100%; /* Lebar penuh untuk tampilan yang baik */
+background-color: rgba(255, 255, 255, 0.9); /* Warna latar semi-transparan */
+padding: 15px; /* Tambahkan padding agar ada ruang */
+border-radius: 5px; /* Buat sudut sedikit membulat */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sedikit bayangan untuk efek */
+z-index: 1000; /* Pastikan di atas elemen lainnya */
+}
+
+/* Center-align the items in the navbar */
+.navbar-nav {
+display: flex;
+flex-direction: column; /* Susunan vertikal untuk item */
+align-items: center; /* Pusatkan item di tengah */
+}
+
+/* Posisikan tautan secara vertikal */
+.nav-item {
+margin-bottom: 10px; /* Tambahkan jarak antar item */
+}
+}

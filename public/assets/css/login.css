@@ -1,0 +1,116 @@
+.login-body {
+    background-image: url('/assets/img/gambar3.jpg'); /* Set your background image here */
+    background-size: cover;
+    background-position: center;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Semi-transparent login box */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+/* Centered heading */
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Input styles */
+.form-control {
+    border-radius: 10px;
+    padding-left: 15px;
+}
+
+/* Custom login button */
+.btn-login {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #218838;
+}
+
+/* Footer text styling */
+.form-text {
+    text-align: center;
+    margin-top: 15px;
+    color: #6c757d;
+}
+
+/* Footer links */
+.custom-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #6c757d;
+}
+
+.custom-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Logo style */
+.logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 100px;
+}
+
+/* Pop-up notification */
+.alert {
+    position: fixed;
+    top: -100px; /* Initially hidden */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    opacity: 0;
+    z-index: 1000;
+    animation: slideDown 0.8s forwards, fadeOut 1s 4.5s forwards; /* Slide down and fade out */
+}
+
+/* Slide-down animation */
+@keyframes slideDown {
+    from {
+        top: -100px; /* Start offscreen */
+        opacity: 0;
+    }
+    to {
+        top: 20px; /* End at top of screen */
+        opacity: 1;
+    }
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        top: -100px; /* Move back up */
+    }
+}

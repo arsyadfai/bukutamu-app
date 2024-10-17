@@ -1,0 +1,437 @@
+.home-body {
+    background-image: url('/assets/img/gambar4.jpg'); /* Set the background image */
+    background-size: cover; /* Cover the area */
+    background-position: center; /* Center the image */ /* Light background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full height page */
+}
+/* Gaya Umum untuk Navbar */
+/* Navbar Styles */
+.navbar {
+    background-color: transparent; /* Transparan */
+    padding: 15px; 
+    position: fixed; /* Tetap di atas */
+    width: 100%; /* Lebar penuh */
+    z-index: 1000; /* Pastikan di atas */
+    top: 0; /* Tempatkan di bagian atas */
+}
+
+/* Gaya Tautan Navbar */
+.navbar .nav-link {
+color: #343a40; /* Warna teks tautan lebih gelap */
+padding: 10px 15px; /* Padding untuk ruang di sekitar teks */
+transition: background-color 0.3s; /* Transisi halus saat hover */
+}
+
+/* Efek Hover untuk Tautan Navbar */
+.navbar .nav-link:hover {
+background-color: rgba(52, 58, 64, 0.2); /* Latar belakang abu-abu gelap pada hover */
+border-radius: 5px; /* Sudut membulat pada hover */
+color: #000; /* Warna teks menjadi lebih gelap saat hover */
+}
+
+/* Gaya untuk Tombol Login */
+.buton-login {
+background-color: #28a745; /* Warna tombol login */
+border: none; /* Menghilangkan border */
+color: white; /* Warna teks tombol */
+padding: 10px 20px; /* Padding untuk tombol */
+border-radius: 5px; /* Sudut membulat pada tombol */
+transition: background-color 0.3s; /* Transisi halus saat hover */
+}
+
+/* Efek Hover untuk Tombol Login */
+.buton-login:hover {
+background-color: #0f7dc7; /* Warna tombol saat hover */
+}
+
+/* Ikon di samping navbar */
+.navbar .nav-icon {
+margin-right: 10px; /* Ruang antara ikon dan teks */
+color: #343a40; /* Warna ikon lebih gelap */
+}
+
+/* Responsif untuk Navbar */
+@media (max-width: 768px) {
+.navbar {
+flex-direction: row; /* Menyusun navbar secara horizontal */
+align-items: center; /* Memusatkan item navbar */
+justify-content: space-between; /* Agar tautan dan toggle tersebar */
+}
+
+/* Pastikan tombol toggle tetap di pojok kanan */
+.navbar-toggler {
+position: absolute;
+right: 15px; /* Menjaga tombol di pojok kanan */
+top: 15px;
+}
+
+/* Menu yang muncul di bawah toggle */
+.navbar-collapse {
+position: absolute;
+top: 60px; /* Atur posisi tepat di bawah tombol toggle */
+width: 100%; /* Lebar penuh untuk tampilan yang baik */
+background-color: rgba(255, 255, 255, 0.9); /* Warna latar semi-transparan */
+padding: 15px; /* Tambahkan padding agar ada ruang */
+border-radius: 5px; /* Buat sudut sedikit membulat */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sedikit bayangan untuk efek */
+z-index: 1000; /* Pastikan di atas elemen lainnya */
+}
+
+/* Center-align the items in the navbar */
+.navbar-nav {
+display: flex;
+flex-direction: column; /* Susunan vertikal untuk item */
+align-items: center; /* Pusatkan item di tengah */
+}
+
+/* Posisikan tautan secara vertikal */
+.nav-item {
+margin-bottom: 10px; /* Tambahkan jarak antar item */
+}
+}
+
+.hero-section {
+    position: relative;
+    text-align: center; /* Center align text */
+    color: white; /* White text for visibility */
+    height: 100vh; /* Full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+.text-wrapper {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    padding: 20px; /* Padding around the text */
+    border-radius: 10px; /* Rounded corners */
+    max-width: 600px; /* Limit the width of the wrapper */
+    margin: auto; /* Center the wrapper */
+    
+    
+}
+.hero-section h1 {
+    font-weight: bold; /* Bold title */
+    margin: 0; /* Remove default margin */
+    margin-bottom: 10px;
+    font-size: 38px; 
+    font-family: 'Lora', serif
+    
+    
+}
+.hero-section p {
+    margin: 5px 0; /* Add some spacing between paragraphs */
+}
+.logo {
+    width: 100px; /* Set a fixed width for the logo */
+    margin-bottom: 10px; /* Space between logo and title */
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 5px 0; /* Kurangi padding di sini */
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0; /* Hapus margin dari elemen p */
+}
+
+.login-body {
+    background-image: url('/assets/img/gambar3.jpg'); /* Set your background image here */
+    background-size: cover;
+    background-position: center;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Semi-transparent login box */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+/* Centered heading */
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Input styles */
+.form-control {
+    border-radius: 10px;
+    padding-left: 15px;
+}
+
+/* Custom login button */
+.btn-login {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #218838;
+}
+
+/* Footer text styling */
+.form-text {
+    text-align: center;
+    margin-top: 15px;
+    color: #6c757d;
+}
+
+/* Footer links */
+.custom-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #6c757d;
+}
+
+.custom-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Logo style */
+.logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 100px;
+}
+
+
+/* Gaya untuk Notifikasi Pop-up */
+.alert-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999; /* Pastikan di atas elemen lainnya */
+    width: 50%; /* Agar pop-up tidak melebar */
+    max-width: 500px; /* Lebar maksimal */
+    padding: 15px 20px; /* Padding di dalam alert */
+    border-radius: 5px; /* Membuat sudut membulat */
+    animation: slideDown 0.8s forwards, fadeOut 1s 2.5s forwards; /* Animasi */
+}
+.alert {
+    position: fixed; /* Menjaga pop-up tetap pada posisi yang sama di layar */
+    top: 20px; /* Berada di bagian atas layar */
+    left: 50%;
+    transform: translateX(-50%); /* Pusatkan secara horizontal */
+    opacity: 0;
+    z-index: 9999; /* Pastikan alert berada di atas semua elemen */
+    padding: 15px 20px; /* Padding di dalam alert */
+    border-radius: 5px; /* Membuat sudut membulat */
+    animation: slideDown 0.8s forwards, fadeOut 1s 4.5s forwards; /* Animasi */
+}
+
+/* Animasi slide turun */
+@keyframes slideDown {
+    from {
+        top: -100px; /* Mulai di luar layar */
+        opacity: 0;
+    }
+    to {
+        top: 20px; /* Berakhir di bagian atas layar */
+        opacity: 1;
+    }
+}
+
+/* Animasi fade out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        top: -100px; /* Kembali ke luar layar */
+    }
+}
+
+
+.index-body {
+    font-family: Arial, sans-serif;
+    background-image: url('/assets/img/backround.jpg'); /* Set your background image here */
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 110vh;
+}
+
+.form-container {
+    position: relative; /* Pastikan form tidak di-overlay */
+    background-color: rgba(255, 255, 255, 0.8); /* Latar belakang transparan */
+    border-radius: 10px; /* Sudut membulat */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan form */
+    padding: 30px;
+    width: 100%;
+    max-width: 400px; /* Batas lebar form */
+    text-align: center;
+    z-index: 500; /* Form berada di bawah alert */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+label {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    color: #999;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 15px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+
+input[type="text"]:focus + label,
+input[type="password"]:focus + label,
+textarea:focus + label {
+    top: -10px;
+    font-size: 12px;
+    color: #2196F3;
+}
+
+.buton {
+    background-color: #2196F3;
+    color: #fff;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.buton:hover {
+    background-color: #0b7dda;
+}
+
+.checkbox-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Style untuk label sebelum input diisi */
+.form-group label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #999;
+    transition: all 0.2s ease;
+    pointer-events: none; /* Membuat label tidak dapat di-klik */
+}
+
+.form-group label i {
+    margin-right: 5px; /* Jarak antara ikon dan teks label */
+    color: #040b11; /* Ubah warna ikon jika diperlukan */
+}
+
+/* Style untuk input yang difokuskan atau sudah diisi */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+    opacity: 0; /* Label akan menghilang */
+    visibility: hidden; /* Sembunyikan label */
+}
+
+/* Style untuk input dan textarea */
+input.form-control, textarea.form-control {
+    padding: 15px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    background: transparent;
+}
+
+/* Style untuk input yang difokuskan */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+.btn-logout, .btn-dashboard {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Warna biru */
+    color: #fff; /* Warna teks putih */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    border-radius: 5px; /* Sudut melengkung */
+    transition: background-color 0.3s;
+}
+
+.btn-logout:hover, .btn-dashboard:hover {
+    background-color: #0056b3; /* Warna biru lebih gelap saat hover */
+}
+
