@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +12,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // Nama pengguna
-            $table->string('email')->unique(); // Email unik
-            $table->string('password'); // Password
-            $table->timestamps();
+        Schema::table('guest_books', function (Blueprint $table) {
+            $table->string('nope')->after('name'); // Nomor Telepon
+            $table->string('alamat')->after('nope'); // Alamat
+            $table->string('jenis_kelamin')->after('alamat'); // Jenis Kelamin
+            $table->string('bertemu')->after('jenis_kelamin'); // Bertemu Dengan Siapa
         });
     }
 
@@ -29,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('guest_books', function (Blueprint $table) {
+            $table->dropColumn(['nope', 'alamat', 'jenis_kelamin', 'bertemu']);
+        });
     }
 };

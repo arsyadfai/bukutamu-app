@@ -3,11 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestBookController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AdminController;
 
-// Route untuk halaman utama
+
 Route::get('/home', function () {
-    return view('home'); // Pastikan ini mengarah ke home.blade.php
-})->name('home'); // Memberi nama pada route
+    return redirect('/'); // Redirect ke /
+})->name('home');
+
+// Route utama untuk halaman home
+Route::get('/', function () {
+    return view('home');
+})->name('home.page');
+
 
 
 // Route untuk tamu
@@ -19,7 +26,8 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit')->middleware('guest');
 
 // Route untuk logout
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); 
 
 // Rute untuk dashboard admin
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+

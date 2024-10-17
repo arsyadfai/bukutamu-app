@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -20,6 +19,8 @@ class GuestBookController extends Controller
     $request->validate([
         'name' => 'required',
         'nope' => 'required',
+        'jenis_kelamin' => 'required',
+        'alamat' => 'required',
         'asal_instansi' => 'required',
         'keperluan' => 'required',
         'bertemu' => 'required',
@@ -37,6 +38,8 @@ class GuestBookController extends Controller
     GuestBook::create([
         'name' => $request->name,
         'nope' => $request->nope,
+        'jenis_kelamin' => $request->jenis_kelamin, // Tambahkan jenis kelamin
+        'alamat' => $request->alamat, // Tambahkan alamat
         'asal_instansi' => $request->asal_instansi,
         'keperluan' => $request->keperluan,
         'bertemu' => $request->bertemu,
@@ -45,4 +48,5 @@ class GuestBookController extends Controller
 
     return redirect()->back()->with('success', 'Data tamu berhasil disimpan.');
 }
+
 }

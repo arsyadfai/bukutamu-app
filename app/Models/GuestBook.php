@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,6 +9,13 @@ class GuestBook extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'asal_instansi', 'keperluan', 'photo'
+        'name',
+        'nope',
+        'jenis_kelamin',
+        'alamat',
+        'asal_instansi',
+        'keperluan',
+        'bertemu',
+        'photo',
     ];
 }
