@@ -1,6 +1,6 @@
  <!-- Footer -->
  <footer class="bg-dark text-white text-center py-3 mt-5">
-        <div class="container">
+        <div class="container-footer">
             <p class="mb-1">© 2024 BBPMP Jateng. All Rights Reserved.</p>
             <p>
                 <a href="#" class="text-white">Kebijakan Privasi</a> | 

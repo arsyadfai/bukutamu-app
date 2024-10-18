@@ -8,8 +8,6 @@
     flex-direction: column;
     min-height: 100vh; /* Full height page */
 }
-/* Gaya Umum untuk Navbar */
-/* Navbar Styles */
 .navbar {
     background-color: transparent; /* Transparan */
     padding: 15px; 
@@ -287,7 +285,7 @@ footer p {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 110vh;
+    min-height: 130vh;
 }
 
 .form-container {
@@ -297,7 +295,7 @@ footer p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan form */
     padding: 30px;
     width: 100%;
-    max-width: 400px; /* Batas lebar form */
+    max-width: 450px; /* Batas lebar form */
     text-align: center;
     z-index: 500; /* Form berada di bawah alert */
 }
@@ -435,3 +433,99 @@ input:focus, textarea:focus {
     background-color: #0056b3; /* Warna biru lebih gelap saat hover */
 }
 
+.admin-body {
+    background: #f5f6fa;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100vh;
+    background-color:  #6c757d;
+    position: fixed;
+    width: 250px;
+    padding-top: 20px;
+    color: white;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.sidebar a {
+    color: white;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #21a5f1;
+    color: #fff;
+}
+
+.sidebar .active {
+    background-color: #04924b;
+    color: white;
+}
+
+.container {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+.dashboard-title {
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #02010c;
+}
+
+.statistik h2 {
+    background-color: #757b7e;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.table thead th {
+    background-color: #99989b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(78, 62, 240, 0.1);
+}
+
+/* Gaya untuk gambar di dalam tabel */
+.table tbody img {
+    width: 100px; /* Atur lebar gambar sesuai kebutuhan */
+    height: 100px; /* Atur tinggi gambar sesuai kebutuhan */
+    object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #ffca2c;
+    color: #000;
+}
+
+.btn-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+}

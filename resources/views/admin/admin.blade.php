@@ -6,110 +6,12 @@
     <title>Admin Dashboard | Buku Tamu Digital BBPMP Jateng</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
     
     <!-- Custom CSS -->
-    <style>
-        body {
-            background: #f5f6fa;
-            font-family: 'Arial', sans-serif;
-        }
-
-        /* Sidebar styles */
-        .sidebar {
-            height: 100vh;
-            background-color:  #6c757d;
-            position: fixed;
-            width: 250px;
-            padding-top: 20px;
-            color: white;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #fff;
-        }
-
-        .sidebar a {
-            color: white;
-            display: block;
-            padding: 10px 15px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .sidebar a:hover {
-            background-color: #675df9;
-            color: #fff;
-        }
-
-        .sidebar .active {
-            background-color: #675df9;
-            color: white;
-        }
-
-        .container {
-            margin-left: 270px;
-            padding: 20px;
-        }
-
-        h1 {
-            margin-bottom: 30px;
-            font-weight: bold;
-            color: #4e3ef0;
-        }
-
-        .statistik h2 {
-            background-color: #4e3ef0;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .table {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .table thead th {
-            background-color: #4e3ef0;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .table tbody tr:hover {
-            background-color: rgba(78, 62, 240, 0.1);
-        }
-
-        .table tbody img {
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-
-        .table tbody img:hover {
-            transform: scale(1.2);
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            color: #000;
-        }
-
-        .btn-warning:hover {
-            background-color: #ffca2c;
-            color: #000;
-        }
-
-        .btn-danger:hover {
-            background-color: #dc3545;
-            color: #fff;
-        }
-    </style>
+  
 </head>
-<body>
+<body class="admin-body">
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -122,11 +24,12 @@
 
     <!-- Content -->
     <div class="container">
-        <h1 class="text-center">Dashboard Admin - Buku Tamu BBPMP Jateng</h1>
+    <h1 class="text-center dashboard-title">Dashboard Admin - Buku Tamu BBPMP Jateng</h1>
+
 
         <!-- Statistik -->
         <div class="statistik text-center mb-4">
-            <h2>Total Tamu: {{ $totalGuests }}</h2>
+            <h2>Total Tamu: {{ $guests->count() }}</h2>
         </div>
 
         <!-- Tabel data tamu -->
@@ -150,7 +53,11 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>
-                            <img src="{{ asset('uploads/guest_photos/' . $guest->foto) }}" alt="Foto {{ $guest->nama }}" style="width: 50px; height: 50px; object-fit: cover;">
+                            @if($guest->photo && file_exists(public_path($guest->photo)))
+                                <img src="{{ asset($guest->photo) }}" alt="Foto {{ $guest->name }}">
+                            @else
+                                <img src="{{ asset('path_to_placeholder_image.jpg') }}" alt="Foto Tidak Tersedia"> <!-- Ganti dengan gambar placeholder -->
+                            @endif
                         </td>
                         <td>{{ $guest->name }}</td>
                         <td>{{ $guest->alamat }}</td>
