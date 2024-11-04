@@ -1,86 +1,253 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Buku Tamu Digital BBPMP Jateng</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    
-    <!-- Custom CSS -->
-  
-</head>
-<body class="admin-body">
+@extends('components.app-layout') <!-- Menggunakan layout utama -->
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>BBPMP Jateng</h2>
-        <a href="#" class="active">Data Tamu</a>
-        <a href="#">Pengaturan</a>
-        <a href="#">Laporan</a>
-        <a href="#">Statistik</a>
+@section('content')
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Buku Tamu BBPMP Jateng</li>
+                </ol>
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-primary text-white mb-4">
+                            <div class="card-body">Jumlah Pengunjung Laki-laki: {{ $maleCount }}</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link" href="#">View Details</a>
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-secondary text-white mb-4">
+                            <div class="card-body">Jumlah Pengunjung Perempuan: {{ $femaleCount }}</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link" href="#">View Details</a>
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-success text-white mb-4">
+                            <div class="card-body">Total Pengunjung: {{ $totalCount }}</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link" href="#">View Details</a>
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-danger text-white mb-4">
+                            <div class="card-body">Statistik Kunjungan Bulanan</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link" href="#">View Details</a>
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Weekly Statistics Chart -->
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-line me-1"></i>
+                                Statistik Kunjungan Mingguan
+                            </div>
+                            <div class="card-body">
+                                <canvas id="weeklyChart" width="100%" height="40"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Statistics Chart -->
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-bar me-1"></i>
+                                Statistik Kunjungan Bulanan
+                            </div>
+                            <div class="card-body">
+                                <canvas id="monthlyChart" width="100%" height="40"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Guests Table -->
+                <div class="table-container">
+                    <h5 class="mt-4">Daftar Kunjungan Hari ini</h5>
+                    <div class="table-responsive">
+                    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Foto</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>No Telepon</th>
+                <th>Gender</th>
+                <th>Bertemu</th>
+                <th>Keperluan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="guestTableBody">
+            <!-- Isi tabel akan ditampilkan di sini -->
+            @foreach($guests as $index => $guest)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>
+                        @if($guest->photo && file_exists(public_path($guest->photo)))
+                            <img src="{{ asset($guest->photo) }}" alt="Foto {{ $guest->name }}" width="80">
+                        @else
+                            <img src="{{ asset('path_to_placeholder_image.jpg') }}" alt="Foto Tidak Tersedia" width="80">
+                        @endif
+                    </td>
+                    <td>{{ $guest->name }}</td>
+                    <td>{{ $guest->alamat }}</td>
+                    <td>{{ $guest->nope }}</td>
+                    <td>{{ $guest->jenis_kelamin }}</td>
+                    <td>{{ $guest->bertemu }}</td>
+                    <td>{{ $guest->keperluan }}</td>
+                    <td>
+                        <a href="{{ route('admin.edit', $guest->id) }}" class="btn-aksi btn-warning btn-sm">
+                            <i class="bi bi-pencil-fill"></i> Edit
+                        </a>
+                        <form action="{{ route('admin.destroy', $guest->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-aksi btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                <i class="bi bi-trash-fill"></i> Hapus
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+<div id="pagination" class="pagination"></div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; BBPMP Jateng 2024</div>
+                </div>
+            </div>
+        </footer>
     </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Data untuk chart mingguan
+    const weeklyData = {
+        labels: ["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"],
+        datasets: [{
+            label: "Kunjungan Mingguan",
+            data: @json($weeklyStats),
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            borderRadius: 5,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+        }]
+    };
 
-    <!-- Content -->
-    <div class="container">
-    <h1 class="text-center dashboard-title">Dashboard Admin - Buku Tamu BBPMP Jateng</h1>
+    // Konfigurasi chart mingguan
+    const weeklyConfig = {
+        type: 'line',
+        data: weeklyData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#333'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#333'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#e0e0e0',
+                    },
+                    ticks: {
+                        color: '#333'
+                    }
+                }
+            }
+        }
+    };
 
+    // Data untuk chart bulanan
+    const monthlyData = {
+        labels: @json($months),
+        datasets: [{
+            label: "Kunjungan Bulanan",
+            data: @json($monthlyStats),
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 2,
+            borderRadius: 5,
+            barPercentage: 0.5,
+        }]
+    };
 
-        <!-- Statistik -->
-        <div class="statistik text-center mb-4">
-            <h2>Total Tamu: {{ $guests->count() }}</h2>
-        </div>
+    // Konfigurasi chart bulanan
+    const monthlyConfig = {
+        type: 'bar',
+        data: monthlyData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#333'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#333'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#e0e0e0',
+                    },
+                    ticks: {
+                        color: '#333'
+                    }
+                }
+            }
+        }
+    };
 
-        <!-- Tabel data tamu -->
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Foto</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>No Telepon</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Bertemu Dengan</th>
-                        <th>Keperluan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($guests as $index => $guest)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>
-                            @if($guest->photo && file_exists(public_path($guest->photo)))
-                                <img src="{{ asset($guest->photo) }}" alt="Foto {{ $guest->name }}">
-                            @else
-                                <img src="{{ asset('path_to_placeholder_image.jpg') }}" alt="Foto Tidak Tersedia"> <!-- Ganti dengan gambar placeholder -->
-                            @endif
-                        </td>
-                        <td>{{ $guest->name }}</td>
-                        <td>{{ $guest->alamat }}</td>
-                        <td>{{ $guest->nope }}</td>
-                        <td>{{ $guest->jenis_kelamin }}</td>
-                        <td>{{ $guest->bertemu }}</td>
-                        <td>{{ $guest->keperluan }}</td>
-                        <td>
-                            <a href="{{ route('admin.edit', $guest->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('admin.destroy', $guest->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+    // Render chart mingguan
+    const weeklyChartCtx = document.getElementById('weeklyChart').getContext('2d');
+    new Chart(weeklyChartCtx, weeklyConfig);
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    // Render chart bulanan
+    const monthlyChartCtx = document.getElementById('monthlyChart').getContext('2d');
+    new Chart(monthlyChartCtx, monthlyConfig);
+});
+</script>
+</div>
+@endsection

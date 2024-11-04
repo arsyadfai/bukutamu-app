@@ -1,38 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Daftar Tamu</title>
+    <meta charset="UTF-8">
+    <title>Laporan Pengunjung Buku Tamu</title>
     <style>
-        /* Tambahkan gaya CSS yang diperlukan untuk PDF */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
-    <h1>Daftar Tamu</h1>
+    <h2>Laporan Pengunjung Buku Tamu BBPMP Jateng</h2>
     <table>
         <thead>
             <tr>
+                <th>No</th>
                 <th>Nama</th>
-                <th>Nomor Telepon</th>
-                <th>Jenis Kelamin</th>
                 <th>Alamat</th>
-                <th>Asal Instansi</th>
-                <th>Keperluan</th>
+                <th>No Telepon</th>
+                <th>Gender</th>
                 <th>Bertemu</th>
-                <th>Foto</th>
+                <th>Keperluan</th>
+                <th>Tanggal</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($guests as $guest)
-                <tr>
-                    <td>{{ $guest->name }}</td>
-                    <td>{{ $guest->nope }}</td>
-                    <td>{{ $guest->jenis_kelamin }}</td>
-                    <td>{{ $guest->alamat }}</td>
-                    <td>{{ $guest->asal_instansi }}</td>
-                    <td>{{ $guest->keperluan }}</td>
-                    <td>{{ $guest->bertemu }}</td>
-                    <td><img src="{{ asset($guest->photo) }}" width="50" alt="Foto"></td>
-                </tr>
+            @foreach($guests as $index => $guest)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $guest->name }}</td>
+                <td>{{ $guest->alamat }}</td>
+                <td>{{ $guest->nope }}</td>
+                <td>{{ $guest->jenis_kelamin }}</td>
+                <td>{{ $guest->bertemu }}</td>
+                <td>{{ $guest->keperluan }}</td>
+                <td>{{ $guest->created_at->format('d-m-Y') }}</td>
+            </tr>
             @endforeach
         </tbody>
     </table>
