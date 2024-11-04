@@ -34,19 +34,19 @@ class AdminReportController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
     
-        // Ambil data tamu berdasarkan filter tanggal
+        // Retrieve guest data based on date filter
         $query = GuestBook::query();
         if ($startDate && $endDate) {
             $query->whereBetween('created_at', [$startDate, $endDate]);
         }
         $guests = $query->get();
     
-        // Buat nama file berdasarkan periode
+        // Generate file name based on period
         $fileName = 'guests';
         if ($startDate && $endDate) {
-            $formattedStartDate = \Carbon\Carbon::parse($startDate)->format('d-m-Y');
-            $formattedEndDate = \Carbon\Carbon::parse($endDate)->format('d-m-Y');
-            $fileName .= "_$formattedStartDate-s_$formattedEndDate";
+            $formattedStartDate = Carbon::parse($startDate)->format('d-m-Y');
+            $formattedEndDate = Carbon::parse($endDate)->format('d-m-Y');
+            $fileName .= "_{$formattedStartDate}_to_{$formattedEndDate}";
         }
     
         switch ($fileType) {
@@ -54,19 +54,19 @@ class AdminReportController extends Controller
                 return Excel::download(new GuestsExport($guests), "$fileName.xlsx");
     
             case 'excel_with_images':
-                // Ganti $fileName_with_images dengan $fileName
-                $filePath = "$fileName.xlsx"; // Menggunakan $fileName yang sudah didefinisikan
+                $filePath = "$fileName.xlsx";
                 (new GuestsExportWithImages($guests))->exportWithImages($filePath, $startDate, $endDate);
                 return response()->download(public_path($filePath))->deleteFileAfterSend(true);
     
             case 'pdf':
-                $pdf = PDF::loadView('admin.reports_pdf', compact('guests'));
+                $pdf = PDF::loadView('admin.pdf', compact('guests', 'startDate', 'endDate'));
                 return $pdf->download("$fileName.pdf");
     
             default:
                 return redirect()->back()->with('error', 'Invalid file type selected');
         }
     }
+    
     
     // Fungsi pengujian untuk mengunduh Excel
     public function testExport()
