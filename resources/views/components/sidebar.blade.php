@@ -18,7 +18,7 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                         Register Tamu
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('admin.statistics') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Statistik
                     </a>

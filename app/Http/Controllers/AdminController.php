@@ -10,72 +10,137 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil input pencarian
+        // Check if today is still in the first week of the month
+        $now = Carbon::now();
+        $firstWeekEnd = $now->copy()->startOfMonth()->endOfWeek();
+
+        if ($now->lessThanOrEqualTo($firstWeekEnd)) {
+            // Clear guest data for the first week of the month
+            GuestBook::truncate();
+        }
+
         $search = $request->input('search');
-
-        // Query untuk menghitung total tamu
         $totalCount = GuestBook::count();
-
-        // Query untuk menghitung jumlah tamu berdasarkan jenis kelamin
         $maleCount = GuestBook::where('jenis_kelamin', 'Laki-laki')->count();
         $femaleCount = GuestBook::where('jenis_kelamin', 'Perempuan')->count();
 
-        // Statistik kunjungan mingguan (4 minggu terakhir dari bulan berjalan)
         $weeklyStats = [];
         for ($i = 0; $i < 4; $i++) {
-            $startOfWeek = Carbon::now()->subWeeks($i)->startOfWeek();
-            $endOfWeek = Carbon::now()->subWeeks($i)->endOfWeek();
+            $startOfWeek = $now->copy()->subWeeks($i)->startOfWeek();
+            $endOfWeek = $now->copy()->subWeeks($i)->endOfWeek();
             $weeklyStats[] = GuestBook::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
         }
-        $weeklyStats = array_reverse($weeklyStats); // Untuk menampilkan dari minggu terakhir ke minggu pertama
+        $weeklyStats = array_reverse($weeklyStats);
 
-        // Statistik kunjungan bulanan (6 bulan terakhir dari bulan berjalan)
         $monthlyStats = [];
-        $months = []; // Inisialisasi array untuk nama bulan
+        $months = [];
         for ($i = 0; $i < 6; $i++) {
-            $startOfMonth = Carbon::now()->subMonths($i)->startOfMonth();
-            $endOfMonth = Carbon::now()->subMonths($i)->endOfMonth();
+            $startOfMonth = $now->copy()->subMonths($i)->startOfMonth();
+            $endOfMonth = $now->copy()->subMonths($i)->endOfMonth();
             $monthlyStats[] = GuestBook::whereBetween('created_at', [$startOfMonth, $endOfMonth])->count();
-            $months[] = $startOfMonth->format('F Y'); // Menyimpan nama bulan dan tahun
+            $months[] = $startOfMonth->format('F Y');
         }
-        $monthlyStats = array_reverse($monthlyStats); // Untuk menampilkan dari bulan terakhir ke bulan pertama
-        $months = array_reverse($months); // Menghitung bulan untuk menyesuaikan dengan data yang terbalik
+        $monthlyStats = array_reverse($monthlyStats);
+        $months = array_reverse($months);
 
-        // Query untuk data tamu, dengan fitur pencarian
         $guests = GuestBook::query();
-
         if ($search) {
             $guests = $guests->where('name', 'like', "%{$search}%")
                 ->orWhere('alamat', 'like', "%{$search}%")
                 ->orWhere('keperluan', 'like', "%{$search}%");
         }
-
-        // Dapatkan data tamu yang ditambahkan hari ini
-        $today = now()->toDateString(); // Mengambil tanggal hari ini
-        $todayGuests = $guests->whereDate('created_at', $today)->get(); // Ambil data yang ditambahkan hari ini
-
-        // Dapatkan hasil pencarian atau semua tamu jika tidak ada pencarian
+        $today = $now->toDateString();
+        $todayGuests = $guests->whereDate('created_at', $today)->get();
         $guests = $guests->get();
 
-        return view('admin.admin', compact('totalCount', 'maleCount', 'femaleCount', 'weeklyStats', 'monthlyStats', 'months', 'guests', 'todayGuests'));
+        // Menambahkan header cache agar halaman admin tidak tersimpan di cache
+        return response()
+            ->view('admin.admin', compact('totalCount', 'maleCount', 'femaleCount', 'weeklyStats', 'monthlyStats', 'months', 'guests', 'todayGuests'))
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
     }
+
+    public function showMaleGuests(Request $request)
+    {
+        // Mengambil tamu laki-laki dari database
+        $maleGuests = GuestBook::where('jenis_kelamin', 'Laki-laki')->get();
+
+        // Menambahkan header cache untuk mencegah halaman ini di-cache
+        return response()
+            ->view('admin.male', compact('maleGuests'))
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
+    }
+
+    public function showFemaleGuests() 
+    {
+        $femaleGuests = GuestBook::where('jenis_kelamin', 'Perempuan')->get();
+
+        // Menambahkan header cache untuk mencegah halaman ini di-cache
+        return response()
+            ->view('admin.female', compact('femaleGuests'))
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
+    }
+
+    public function showMonthlyStatistics()
+    {
+        $now = Carbon::now();
+    
+        // Menghitung statistik bulanan
+        $monthlyStats = [];
+        $months = [];
+        for ($i = 0; $i < 6; $i++) {
+            $startOfMonth = $now->copy()->subMonths($i)->startOfMonth();
+            $endOfMonth = $now->copy()->subMonths($i)->endOfMonth();
+            $monthlyStats[] = GuestBook::whereBetween('created_at', [$startOfMonth, $endOfMonth])->count();
+            $months[] = $startOfMonth->format('F Y');
+        }
+        $monthlyStats = array_reverse($monthlyStats);
+        $months = array_reverse($months);
+    
+        // Menghitung statistik mingguan
+        $weeklyStats = [];
+        for ($i = 0; $i < 4; $i++) {
+            $startOfWeek = $now->copy()->subWeeks($i)->startOfWeek();
+            $endOfWeek = $now->copy()->subWeeks($i)->endOfWeek();
+            $weeklyStats[] = GuestBook::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
+        }
+        $weeklyStats = array_reverse($weeklyStats);
+    
+        // Menghitung jumlah tamu pria dan wanita, serta total
+        $maleCount = GuestBook::where('jenis_kelamin', 'Laki-laki')->count();
+        $femaleCount = GuestBook::where('jenis_kelamin', 'Perempuan')->count();
+        $totalCount = GuestBook::count();
+    
+        // Kirim semua data relevan ke tampilan
+        return response()
+            ->view('admin.statistics', compact('monthlyStats', 'months', 'maleCount', 'femaleCount', 'totalCount', 'weeklyStats'))
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
+    }
+    
 
     public function destroy($id)
     {
         $guest = GuestBook::find($id);
-    
+
         if ($guest) {
             // Hapus foto jika ada
             if (file_exists(public_path($guest->photo))) {
                 unlink(public_path($guest->photo));
             }
-    
+
             // Hapus data tamu dari database
             $guest->delete();
-    
+
             return redirect()->route('admin.index')->with('success', 'Data tamu berhasil dihapus.');
         }
-    
+
         return redirect()->route('admin.index')->with('error', 'Data tamu tidak ditemukan.');
     }
 
@@ -113,12 +178,10 @@ class AdminController extends Controller
 
             // Jika ada file foto baru, upload dan update
             if ($request->hasFile('photo')) {
-                // Hapus foto lama jika ada
                 if (file_exists(public_path($guest->photo))) {
                     unlink(public_path($guest->photo));
                 }
 
-                // Simpan foto baru
                 $photoPath = $request->file('photo')->store('uploads/guest_photos', 'public');
                 $guest->photo = $photoPath;
             }

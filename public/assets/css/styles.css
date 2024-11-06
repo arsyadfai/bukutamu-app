@@ -11416,4 +11416,55 @@ body {
           height: auto; /* Menjaga rasio aspek gambar */
       }
       
-      
+    /* Custom CSS for date filter input boxes */
+.form-control[type="date"] {
+  border: 1px solid #040b11; /* Change border color */
+  border-radius: 0.25rem;    /* Rounded corners */
+  padding: 0.5rem;            /* Padding for better touch target */
+  height: auto;               /* Ensure consistent height */
+  transition: border-color 0.3s ease; /* Smooth border transition */
+  max-width: 200px;           /* Set maximum width for compactness */
+  width: 100%;                /* Allow it to be responsive */
+}
+
+/* Adjust the column layout to reduce space between date inputs */
+.row.g-3 .col-md-4 {
+  padding-left: 0; /* Remove left padding */
+}
+
+/* Optionally, adjust the width of the columns to fit closer together */
+.row.g-3 .col-md-4 {
+  flex: 0 0 auto; /* Prevent columns from stretching */
+  width: auto;    /* Allow columns to fit their content */
+}
+
+.row.g-3 .col-md-4:first-child {
+  margin-right: 5px; /* Add a small margin to the right of the first input */
+}
+
+
+.form-control[type="date"]:focus {
+  border-color: #0056b3; /* Darker border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light shadow on focus */
+}
+/* CSS Custom untuk kotak pencarian tamu */
+.custom-search-box {
+  max-width: 300px; /* Tentukan lebar maksimum sesuai kebutuhan */
+  width: 100%; /* Agar tetap responsif */
+}
+
+.search-container {
+  position: absolute;
+  right: 0;
+  top: 200px;
+  z-index: 1000; /* Agar tetap di atas elemen lain */
+}
+
+
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .form-control {
+      width: 100%; /* Make inputs full width on smaller screens */
+  }
+}

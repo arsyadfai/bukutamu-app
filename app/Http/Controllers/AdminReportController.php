@@ -14,6 +14,7 @@ class AdminReportController extends Controller
 {
     public function index(Request $request)
     {
+        // Memulai query untuk mengambil data tamu
         $query = GuestBook::query();
 
         // Filter berdasarkan tanggal
@@ -21,10 +22,20 @@ class AdminReportController extends Controller
             $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
         }
 
-        // Mengambil data tamu berdasarkan query
+        // Pencarian berdasarkan nama, alamat, atau keperluan
+        if ($request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('alamat', 'like', "%{$search}%")
+                  ->orWhere('keperluan', 'like', "%{$search}%");
+            });
+        }
+
+        // Mengambil data tamu berdasarkan query yang telah difilter
         $guests = $query->orderBy('created_at', 'desc')->get();
 
-        // Mengembalikan view dengan data tamu
+        // Mengembalikan view dengan data tamu yang telah difilter
         return view('admin.reports', compact('guests'));
     }
 
@@ -39,10 +50,21 @@ class AdminReportController extends Controller
         if ($startDate && $endDate) {
             $query->whereBetween('created_at', [$startDate, $endDate]);
         }
+
+        // Pencarian juga diterapkan pada export
+        if ($request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('alamat', 'like', "%{$search}%")
+                  ->orWhere('keperluan', 'like', "%{$search}%");
+            });
+        }
+
         $guests = $query->get();
     
         // Generate file name based on period
-        $fileName = 'guests';
+        $fileName = 'data_tamu';
         if ($startDate && $endDate) {
             $formattedStartDate = Carbon::parse($startDate)->format('d-m-Y');
             $formattedEndDate = Carbon::parse($endDate)->format('d-m-Y');
@@ -66,7 +88,6 @@ class AdminReportController extends Controller
                 return redirect()->back()->with('error', 'Invalid file type selected');
         }
     }
-    
     
     // Fungsi pengujian untuk mengunduh Excel
     public function testExport()
