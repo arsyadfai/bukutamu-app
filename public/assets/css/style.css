@@ -10,6 +10,7 @@
 }
 .navbar {
     background-color: transparent; /* Transparan */
+    color: linear-gradient(to right, #000000, #4e4d4d);;
     padding: 15px; 
     position: fixed; /* Tetap di atas */
     width: 100%; /* Lebar penuh */
@@ -19,17 +20,18 @@
 
 /* Gaya Tautan Navbar */
 .navbar .nav-link {
-color: #343a40; /* Warna teks tautan lebih gelap */
+color: #dfdfdf; /* Warna teks tautan lebih gelap */
 padding: 10px 15px; /* Padding untuk ruang di sekitar teks */
 transition: background-color 0.3s; /* Transisi halus saat hover */
 }
 
 /* Efek Hover untuk Tautan Navbar */
 .navbar .nav-link:hover {
-background-color: rgba(52, 58, 64, 0.2); /* Latar belakang abu-abu gelap pada hover */
+background-color: rgba(242, 244, 245, 0.2); /* Latar belakang abu-abu gelap pada hover */
 border-radius: 5px; /* Sudut membulat pada hover */
-color: #000; /* Warna teks menjadi lebih gelap saat hover */
+color: #000000; /* Warna teks menjadi lebih gelap saat hover */
 }
+
 
 /* Gaya untuk Tombol Login */
 .buton-login {
@@ -50,6 +52,9 @@ background-color: #0f7dc7; /* Warna tombol saat hover */
 .navbar .nav-icon {
 margin-right: 10px; /* Ruang antara ikon dan teks */
 color: #343a40; /* Warna ikon lebih gelap */
+background: linear-gradient(to right, #302f2f, #4e4d4d);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
 
 /* Responsif untuk Navbar */
@@ -95,7 +100,7 @@ margin-bottom: 10px; /* Tambahkan jarak antar item */
 .hero-section {
     position: relative;
     text-align: center; /* Center align text */
-    color: white; /* White text for visibility */
+    color: rgb(0, 0, 0); /* White text for visibility */
     height: 100vh; /* Full height */
     display: flex;
     flex-direction: column;
@@ -103,7 +108,7 @@ margin-bottom: 10px; /* Tambahkan jarak antar item */
     align-items: center; /* Center horizontally */
 }
 .text-wrapper {
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    background-color: rgba(250, 241, 241, 0.644); /* Semi-transparent black background */
     padding: 20px; /* Padding around the text */
     border-radius: 10px; /* Rounded corners */
     max-width: 600px; /* Limit the width of the wrapper */
@@ -144,9 +149,10 @@ footer p {
 }
 
 .login-body {
-    background-image: url('/assets/img/gambar3.jpg'); /* Set your background image here */
-    background-size: cover;
-    background-position: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), 
+    rgba(0, 0, 0, 0.5)), url('/assets/img/gambar4.jpg'); /* Set the background image */
+    background-size: cover; /* Cover the area */
+    background-position: center; /* Center the image */ /* Light background */
     font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
@@ -157,7 +163,7 @@ footer p {
 
 /* Semi-transparent login box */
 .login-container {
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent */
+    background-color: rgba(255, 255, 255, 0.842); /* Semi-transparent */
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 40px;
@@ -229,6 +235,7 @@ footer p {
 
 /* Gaya untuk Notifikasi Pop-up */
 .alert-container {
+    font-family: Arial, sans-serif;
     position: fixed;
     top: 20px;
     left: 50%;
@@ -277,8 +284,8 @@ footer p {
 
 
 .index-body {
-    font-family: Arial, sans-serif;
-    background-image: url('/assets/img/backround.jpg'); /* Set your background image here */
+    background-image: linear-gradient(rgba(170, 170, 170, 0.24), 
+    rgba(0, 0, 0, 0.5)), url('/assets/img/background6.jpg'); /* Set your background image here */
     background-size: cover;
     background-position: center;
     margin: 0;
@@ -289,8 +296,9 @@ footer p {
 }
 
 .form-container {
+    font-family:  'Poppins', sans-serif;
     position: relative; /* Pastikan form tidak di-overlay */
-    background-color: rgba(255, 255, 255, 0.8); /* Latar belakang transparan */
+    background-color: rgba(252, 252, 252, 0.829); /* Latar belakang transparan */
     border-radius: 10px; /* Sudut membulat */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan form */
     padding: 30px;
@@ -301,6 +309,20 @@ footer p {
 }
 
 h2 {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.form-container p {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
     text-align: center;
     color: #333;
     margin-bottom: 10px;
@@ -327,7 +349,7 @@ input[type="password"],
 textarea {
     width: 100%;
     padding: 15px 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #1a1919;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -383,7 +405,7 @@ textarea:focus + label {
     left: 10px;
     transform: translateY(-50%);
     font-size: 16px;
-    color: #999;
+    color: #000000;
     transition: all 0.2s ease;
     pointer-events: none; /* Membuat label tidak dapat di-klik */
 }
@@ -391,6 +413,9 @@ textarea:focus + label {
 .form-group label i {
     margin-right: 5px; /* Jarak antara ikon dan teks label */
     color: #040b11; /* Ubah warna ikon jika diperlukan */
+    background: linear-gradient(to right, #0a2255, #188b6f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* Style untuk input yang difokuskan atau sudah diisi */
@@ -405,7 +430,7 @@ textarea:focus + label {
 /* Style untuk input dan textarea */
 input.form-control, textarea.form-control {
     padding: 15px 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #b9b9b9;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
@@ -431,4 +456,135 @@ input:focus, textarea:focus {
 
 .btn-logout:hover, .btn-dashboard:hover {
     background-color: #0056b3; /* Warna biru lebih gelap saat hover */
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), 
+        rgba(0, 0, 0, 0.5)), url('/assets/img/gambar5.jpg'); /* Set the background image */
+        background-size: cover; /* Cover the area */
+        background-position: center; /* Center the image */ /* Light background */
+        color: #030202;
+}
+
+.hero-section-about {
+    text-align: center;
+    color: #fff;
+    padding: 80px 20px;
+}
+
+.hero-section-about h1 {
+    font-family: 'Lora', serif;
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.hero-section-about p {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.feature-box {
+    padding: 30px;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.feature-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-box i {
+    font-size: 3.5rem;
+    color: #4a69bd;
+    margin-bottom: 0px;
+    background: linear-gradient(to right, #6a89cc, #b8e994);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.feature-box h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0a0909;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    font-size: 1rem;
+    color: #0a0909;
+    line-height: 1.8;
+    margin: 10px 0;
+}
+
+.features-section .row {
+    display: flex;
+    align-items: stretch;
+    margin-top: 30px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.contact-info {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.contact-info h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+.container h1{
+font-family: 'Lora', serif;
+font-size: 3rem;
+font-weight: 600;
+margin-bottom: 10px;
+}
+
+.container p {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.contact-body{
+        font-family: 'Poppins', sans-serif;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), 
+        rgba(0, 0, 0, 0.5)), url('/assets/img/gambar3.jpg'); /* Set the background image */
+        background-size: cover; /* Cover the area */
+        background-position: center; /* Center the image */ /* Light background */
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Full height page */
+}
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links a {
+    color: #6a89cc;
+    font-size: 2rem;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #4a69bd;
 }

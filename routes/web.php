@@ -19,6 +19,16 @@ Route::get('/', function () {
         ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
 })->name('home.page');
 
+// Route untuk halaman About
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+// Route untuk halaman Contact
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
 // Route untuk tamu, dilindungi middleware auth agar hanya yang sudah login yang bisa mengakses
 Route::get('/guestbook', [GuestBookController::class, 'index'])->name('guestbook.index')->middleware('auth');
 Route::post('/guestbook', [GuestBookController::class, 'store'])->name('guestbook.store')->middleware('auth');

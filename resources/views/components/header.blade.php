@@ -7,13 +7,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/home"><i class="fas fa-home nav-icon"></i>Beranda</a> <!-- Ikon Beranda -->
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/about"><i class="fas fa-info-circle nav-icon"></i>Tentang</a> <!-- Ikon Tentang -->
-            </li>
-            <li class="nav-item">
+        <li class="nav-item {{ request()->routeIs('home.page') ? 'active' : '' }}">
+    <a class="nav-link" href="/home"><i class="fas fa-home nav-icon"></i>Beranda</a>
+</li>
+<li class="nav-item {{ request()->routeIs('about') ? 'active' : '' }}">
+    <a class="nav-link" href="/about"><i class="fas fa-info-circle nav-icon"></i>Tentang</a>
+</li>
+<li class="nav-item {{ request()->routeIs('contact') ? 'active' : '' }}">
                 <a class="nav-link" href="/contact"><i class="fas fa-envelope nav-icon"></i>Kontak</a> <!-- Ikon Kontak -->
             </li>
             @auth
