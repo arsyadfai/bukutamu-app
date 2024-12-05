@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\GuestBook;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -24,13 +26,12 @@ class AdminController extends Controller
         $maleCount = GuestBook::where('jenis_kelamin', 'Laki-laki')->count();
         $femaleCount = GuestBook::where('jenis_kelamin', 'Perempuan')->count();
 
-        $weeklyStats = [];
-        for ($i = 0; $i < 4; $i++) {
-            $startOfWeek = $now->copy()->subWeeks($i)->startOfWeek();
-            $endOfWeek = $now->copy()->subWeeks($i)->endOfWeek();
-            $weeklyStats[] = GuestBook::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-        }
-        $weeklyStats = array_reverse($weeklyStats);
+        // Weekly statistics for the current week's data only
+        $startOfCurrentWeek = $now->copy()->startOfWeek();
+        $endOfCurrentWeek = $startOfCurrentWeek->copy()->endOfWeek();
+        $weeklyStats = [
+            GuestBook::whereBetween('created_at', [$startOfCurrentWeek, $endOfCurrentWeek])->count()
+        ];
 
         $monthlyStats = [];
         $months = [];
@@ -103,14 +104,13 @@ class AdminController extends Controller
         $months = array_reverse($months);
     
         // Menghitung statistik mingguan
-        $weeklyStats = [];
-        for ($i = 0; $i < 4; $i++) {
-            $startOfWeek = $now->copy()->subWeeks($i)->startOfWeek();
-            $endOfWeek = $now->copy()->subWeeks($i)->endOfWeek();
-            $weeklyStats[] = GuestBook::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-        }
-        $weeklyStats = array_reverse($weeklyStats);
-    
+        // Weekly statistics for the current week's data only
+        $startOfCurrentWeek = $now->copy()->startOfWeek();
+        $endOfCurrentWeek = $startOfCurrentWeek->copy()->endOfWeek();
+        $weeklyStats = [
+            GuestBook::whereBetween('created_at', [$startOfCurrentWeek, $endOfCurrentWeek])->count()
+        ];
+
         // Menghitung jumlah tamu pria dan wanita, serta total
         $maleCount = GuestBook::where('jenis_kelamin', 'Laki-laki')->count();
         $femaleCount = GuestBook::where('jenis_kelamin', 'Perempuan')->count();
@@ -193,4 +193,41 @@ class AdminController extends Controller
 
         return redirect()->route('admin.index')->with('error', 'Data tamu tidak ditemukan.');
     }
+
+    public function settings()
+    {
+        return view('admin.settings'); // Tampilan untuk halaman pengaturan
+    }
+    
+    public function updateSettings(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'username' => 'required|string|max:255|unique:users,username,' . Auth::id(),
+            'current_password' => 'required|string',
+            'new_password' => 'nullable|string|min:8|confirmed',  // Jika password baru diisi
+        ]);
+    
+        $user = Auth::user();
+    
+        // Cek apakah password saat ini benar
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Password saat ini tidak cocok']);
+        }
+    
+        // Update username jika berbeda
+        if ($request->username !== $user->username) {
+            $user->username = $request->username;
+        }
+    
+        // Update password jika password baru diisi
+        if ($request->new_password) {
+            $user->password = Hash::make($request->new_password);
+        }
+    
+        $user->save();
+    
+        return back()->with('success', 'Pengaturan berhasil diperbarui');
+    }
+
 }

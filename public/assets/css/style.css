@@ -149,7 +149,7 @@ footer p {
 }
 
 .login-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), 
+    background-image: linear-gradient(rgba(170, 170, 170, 0.24), 
     rgba(0, 0, 0, 0.5)), url('/assets/img/gambar4.jpg'); /* Set the background image */
     background-size: cover; /* Cover the area */
     background-position: center; /* Center the image */ /* Light background */
@@ -563,7 +563,7 @@ margin-bottom: 10px;
 
 .contact-body{
         font-family: 'Poppins', sans-serif;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), 
+        background-image: linear-gradient(rgba(70, 68, 68, 0.24), 
         rgba(0, 0, 0, 0.5)), url('/assets/img/gambar3.jpg'); /* Set the background image */
         background-size: cover; /* Cover the area */
         background-position: center; /* Center the image */ /* Light background */

@@ -10,10 +10,6 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
-                    <a class="nav-link" href="#">
-                        <div class="sb-nav-link-icon"><i class="fas fa-person"></i></div>
-                        User Profile
-                    </a>
                     <a class="nav-link" href="{{ route('guestbook.index') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                         Register Tamu
@@ -26,7 +22,7 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Laporan
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('admin.settings') }}">
                         <div class="sb-nav-link"><i class="fas fa-cog"></i></div>
                         Pengaturan
                     </a>
