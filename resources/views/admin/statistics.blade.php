@@ -101,83 +101,78 @@
 
         <!-- JavaScript for charts -->
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Data untuk chart mingguan
-            const weeklyData = {
-                labels: ["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"],
-                datasets: [{
-                    label: "Kunjungan Mingguan",
-                    data: @json($weeklyStats),  // Weekly stats data passed from the controller
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    borderRadius: 5,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                    pointBorderColor: '#fff'
-                }]
-            };
+document.addEventListener("DOMContentLoaded", function () {
+    // Data untuk chart mingguan
+    const weeklyLabels = @json($weeklyLabels);
+    const weeklyData = @json($weeklyData);
 
-            const weeklyConfig = {
-                type: 'line',
-                data: weeklyData,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: true, position: 'top' },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y;
-                                }
-                            }
+    const ctx = document.getElementById('weeklyChart').getContext('2d');
+    new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: @json($weeklyLabels),  // Labels: Minggu 1, Minggu 2, dst
+        datasets: [{
+            label: 'Jumlah Kunjungan',
+            data: @json($weeklyData),  // Data kunjungan per minggu
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+    // Data untuk chart bulanan
+    const monthlyData = {
+        labels: @json($months),
+        datasets: [{
+            label: "Kunjungan Bulanan",
+            data: @json($monthlyStats),
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 2,
+            borderRadius: 5,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+            pointBorderColor: '#fff'
+        }]
+    };
+
+    const monthlyConfig = {
+        type: 'bar',
+        data: monthlyData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y;
                         }
                     }
                 }
-            };
+            }
+        }
+    };
 
-            // Buat chart mingguan
-            const weeklyChart = new Chart(document.getElementById('weeklyChart'), weeklyConfig);
-
-            // Data untuk chart bulanan
-            const monthlyData = {
-                labels: @json($months),  // Array of months passed from controller
-                datasets: [{
-                    label: "Kunjungan Bulanan",
-                    data: @json($monthlyStats),  // Monthly stats data passed from controller
-                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    borderWidth: 2,
-                    borderRadius: 5,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    pointBackgroundColor: 'rgba(153, 102, 255, 1)',
-                    pointBorderColor: '#fff'
-                }]
-            };
-
-            const monthlyConfig = {
-                type: 'bar',
-                data: monthlyData,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: true, position: 'top' },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y;
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            // Buat chart bulanan
-            const monthlyChart = new Chart(document.getElementById('monthlyChart'), monthlyConfig);
-        });
-        </script>
+    // Buat chart bulanan
+    const monthlyChart = new Chart(
+        document.getElementById('monthlyChart'),
+        monthlyConfig
+    );
+});
+</script>
     </div>
 @endsection

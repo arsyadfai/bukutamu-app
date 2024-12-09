@@ -30,20 +30,71 @@
             width: 100%; /* Make table full width */
             table-layout: fixed; /* Make columns fixed width */
         }
+
+        /* Gaya untuk Notifikasi Pop-up */
+.alert-container {
+    font-family: Arial, sans-serif;
+    position: fixed;
+    top: 20px;
+    left: 55%;
+    transform: translateX(-50%);
+    z-index: 9999; /* Pastikan di atas elemen lainnya */
+    width: 50%; /* Agar pop-up tidak melebar */
+    max-width: 500px; /* Lebar maksimal */
+    padding: 15px 20px; /* Padding di dalam alert */
+    border-radius: 5px; /* Membuat sudut membulat */
+    animation: slideDown 0.8s forwards, fadeOut 1s 2.5s forwards; /* Animasi */
+}
+.alert {
+    position: fixed; /* Menjaga pop-up tetap pada posisi yang sama di layar */
+    top: 20px; /* Berada di bagian atas layar */
+    left: 45%;
+    transform: translateX(-50%); /* Pusatkan secara horizontal */
+    opacity: 0;
+    z-index: 9999; /* Pastikan alert berada di atas semua elemen */
+    padding: 15px 20px; /* Padding di dalam alert */
+    border-radius: 5px; /* Membuat sudut membulat */
+    animation: slideDown 0.8s forwards, fadeOut 1s 4.5s forwards; /* Animasi */
+}
+
+/* Animasi slide turun */
+@keyframes slideDown {
+    from {
+        top: -100px; /* Mulai di luar layar */
+        opacity: 0;
+    }
+    to {
+        top: 20px; /* Berakhir di bagian atas layar */
+        opacity: 1;
+    }
+}
+
+/* Animasi fade out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        top: -100px; /* Kembali ke luar layar */
+    }
+}
+
     </style>
 </head>
 <body class="sb-nav-fixed">
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+<div class="alert-container">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+        </div>
+    @elseif (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
-
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-    @endif
+</div>
 
     <x-navbar />
 

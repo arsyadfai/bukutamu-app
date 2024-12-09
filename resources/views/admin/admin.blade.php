@@ -140,48 +140,31 @@
     <script>
 document.addEventListener("DOMContentLoaded", function () {
     // Data untuk chart mingguan
-    const weeklyData = {
-        labels: ["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"],
+    const weeklyLabels = @json($weeklyLabels);
+    const weeklyData = @json($weeklyData);
+
+    const ctx = document.getElementById('weeklyChart').getContext('2d');
+    new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: @json($weeklyLabels),  // Labels: Minggu 1, Minggu 2, dst
         datasets: [{
-            label: "Kunjungan Mingguan",
-            data: @json($weeklyStats),
+            label: 'Jumlah Kunjungan',
+            data: @json($weeklyData),  // Data kunjungan per minggu
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 2,
-            borderRadius: 5,
-            pointRadius: 5,
-            pointHoverRadius: 7,
-            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-            pointBorderColor: '#fff'
+            borderWidth: 1
         }]
-    };
-
-    const weeklyConfig = {
-        type: 'line',
-        data: weeklyData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top'
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.dataset.label + ': ' + context.parsed.y;
-                        }
-                    }
-                }
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
             }
         }
-    };
-
-    // Buat chart mingguan
-    const weeklyChart = new Chart(
-        document.getElementById('weeklyChart'),
-        weeklyConfig
-    );
+    }
+});
 
     // Data untuk chart bulanan
     const monthlyData = {
