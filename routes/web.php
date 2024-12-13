@@ -57,6 +57,9 @@ Route::get('/admin/reports/female', [AdminController::class, 'showFemaleGuests']
 // Rute untuk statistik
 Route::get('/admin/statistics', [AdminController::class, 'showMonthlyStatistics'])->name('admin.statistics');
 
+Route::get('/get-guest-by-phone', [GuestBookController::class, 'getGuestByPhone']);
+
+
 // Rute untuk menampilkan halaman pengaturan
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
 // Rute untuk memperbarui username dan kata sandi

@@ -53,11 +53,6 @@
             <button type="submit" class="btn-login">Login</button>
         </form>
 
-        <div class="custom-footer">
-            <p>Belum punya akun? <a href="#">Daftar di sini</a></p>
-        </div>
-    </div>
-
     <!-- Bootstrap 5 JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

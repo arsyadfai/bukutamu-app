@@ -67,4 +67,25 @@ class GuestBookController extends Controller
 
         return redirect()->back()->with('success', 'Data tamu berhasil disimpan.');
     }
+    public function getGuestByPhone(Request $request)
+{
+    $phone = $request->input('nope');
+
+    // Cari tamu berdasarkan nomor telepon
+    $guest = GuestBook::where('nope', $phone)->first();
+
+    // Jika ada, kirim data tamu ke view
+    if ($guest) {
+        return response()->json([
+            'success' => true,
+            'data' => $guest
+        ]);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'Nomor telepon tidak ditemukan'
+    ]);
+}
+
 }

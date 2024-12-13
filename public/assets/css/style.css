@@ -292,7 +292,7 @@ footer p {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 130vh;
+    min-height: 110vh;
 }
 
 .form-container {
@@ -303,10 +303,11 @@ footer p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan form */
     padding: 30px;
     width: 100%;
-    max-width: 450px; /* Batas lebar form */
+    max-width: 700px; /* Batas lebar form */
     text-align: center;
     z-index: 500; /* Form berada di bawah alert */
 }
+
 
 h2 {
     font-family: 'Lora', serif;
