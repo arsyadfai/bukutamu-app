@@ -64,3 +64,5 @@ Route::get('/get-guest-by-phone', [GuestBookController::class, 'getGuestByPhone'
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
 // Rute untuk memperbarui username dan kata sandi
 Route::post('/admin/settings', [AdminController::class, 'updateSettings'])->name('admin.updateSettings');
+
+Route::post('/detect-face', [GuestBookController::class, 'detectFace'])->name('detect.face');
